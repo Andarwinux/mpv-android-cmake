@@ -22,7 +22,7 @@ ExternalProject_Add(libiconv
 
 ExternalProject_Add_Step(libiconv install-pc
     DEPENDEES install
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/libiconv.pc ${MINGW_INSTALL_PREFIX}/lib/pkgconfig/iconv.pc
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/libiconv.pc ${PACKAGES_INSTALL_PREFIX}/lib/pkgconfig/iconv.pc
 )
 
 cleanup(libiconv install-pc)

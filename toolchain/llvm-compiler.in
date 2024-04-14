@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/env bash
 TARGET=@TARGET_CPU@
-FLAGS="$FLAGS -target $TARGET-termux-linux-android33"
-FLAGS="$FLAGS @driver_mode@ --sysroot @MINGW_INSTALL_PREFIX@"
+FLAGS="$FLAGS -target $TARGET-termux-linux-android29"
+FLAGS="$FLAGS @driver_mode@"
 FLAGS="$FLAGS -fuse-ld=lld --ld-path=@TARGET_ARCH@-ld"
 FLAGS="$FLAGS -Wno-unused-command-line-argument -Wno-int-conversion -Wno-vla-cxx-extension -Wno-packed -Wno-unused-function -Wno-macro-redefined -Wno-backend-plugin"
 FLAGS="$FLAGS -DNDEBUG"

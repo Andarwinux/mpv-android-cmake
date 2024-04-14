@@ -1,7 +1,7 @@
 #!/bin/env bash
 export O_PATH="$PATH"
 export PATH="@CMAKE_INSTALL_PREFIX@/bin:$PATH"
-export PKG_CONFIG="pkgconf --static"
+export PKG_CONFIG="pkg-config --static"
 export PKG_CONFIG_LIBDIR="@PACKAGES_INSTALL_PREFIX@/lib/pkgconfig"
 export CCACHE_DIR="@PACKAGES_INSTALL_PREFIX@/ccache"
 

@@ -6,7 +6,7 @@ ExternalProject_Add(brotli
     UPDATE_COMMAND ""
     CONFIGURE_COMMAND ${EXEC} CONF=1 cmake -H<SOURCE_DIR> -B<BINARY_DIR>
         ${cmake_conf_args}
-        -DSHARE_INSTALL_PREFIX=${MINGW_INSTALL_PREFIX}
+        -DSHARE_INSTALL_PREFIX=${PACKAGES_INSTALL_PREFIX}
         -DBROTLI_EMSCRIPTEN=OFF
         ${brotli_tools}
     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>

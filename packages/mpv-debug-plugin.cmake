@@ -10,7 +10,7 @@ ExternalProject_Add(mpv-debug-plugin
     CONFIGURE_COMMAND ${EXEC} CONF=1 cmake -H<SOURCE_DIR> -B<BINARY_DIR>
         ${cmake_conf_args}
     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
-    INSTALL_COMMAND bash -c "cp <BINARY_DIR>/debug.dll ${MINGW_INSTALL_PREFIX}/bin"
+    INSTALL_COMMAND bash -c "cp <BINARY_DIR>/debug.dll ${PACKAGES_INSTALL_PREFIX}/bin"
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
 )
 

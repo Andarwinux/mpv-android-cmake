@@ -11,7 +11,7 @@ ExternalProject_Add(openssl
     UPDATE_COMMAND ""
     CONFIGURE_COMMAND ${EXEC} cp ${CMAKE_CURRENT_SOURCE_DIR}/11-mingw-arm64.conf <SOURCE_DIR>/Configurations/ && CONF=1 <SOURCE_DIR>/Configure
         --cross-compile-prefix=${TARGET_ARCH}-
-        --prefix=${MINGW_INSTALL_PREFIX}
+        --prefix=${PACKAGES_INSTALL_PREFIX}
         --libdir=lib
         --release
         no-autoload-config

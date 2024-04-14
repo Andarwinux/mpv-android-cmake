@@ -11,7 +11,7 @@ ExternalProject_Add(name
     PATCH_COMMAND ""
     CONFIGURE_COMMAND ${EXEC} autoreconf -fi && CONF=1 <SOURCE_DIR>/configure
         --host=${TARGET_ARCH}
-        --prefix=${MINGW_INSTALL_PREFIX}
+        --prefix=${PACKAGES_INSTALL_PREFIX}
         --enable-static
         --disable-shared
     BUILD_COMMAND ${MAKE}

@@ -67,14 +67,14 @@ ExternalProject_Add_Step(vapoursynth manual-install
     DEPENDEES download-header
     WORKING_DIRECTORY <SOURCE_DIR>
     # Copying header
-    COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/VapourSynth.h ${MINGW_INSTALL_PREFIX}/include/vapoursynth/VapourSynth.h
-    COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/VSScript.h ${MINGW_INSTALL_PREFIX}/include/vapoursynth/VSScript.h
-    COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/VSHelper.h ${MINGW_INSTALL_PREFIX}/include/vapoursynth/VSHelper.h
+    COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/VapourSynth.h ${PACKAGES_INSTALL_PREFIX}/include/vapoursynth/VapourSynth.h
+    COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/VSScript.h ${PACKAGES_INSTALL_PREFIX}/include/vapoursynth/VSScript.h
+    COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/VSHelper.h ${PACKAGES_INSTALL_PREFIX}/include/vapoursynth/VSHelper.h
     # Copying libs
     ${vapoursynth_manual_install_copy_lib}
     # Copying .pc files
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/vapoursynth.pc ${MINGW_INSTALL_PREFIX}/lib/pkgconfig/vapoursynth.pc
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/vapoursynth-script.pc ${MINGW_INSTALL_PREFIX}/lib/pkgconfig/vapoursynth-script.pc
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/vapoursynth.pc ${PACKAGES_INSTALL_PREFIX}/lib/pkgconfig/vapoursynth.pc
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/vapoursynth-script.pc ${PACKAGES_INSTALL_PREFIX}/lib/pkgconfig/vapoursynth-script.pc
 )
 
 cleanup(vapoursynth manual-install)

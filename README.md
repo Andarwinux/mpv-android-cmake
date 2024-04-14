@@ -109,7 +109,7 @@ Example:
     -DGCC_ARCH=x86-64-v3 \
     -DSINGLE_SOURCE_LOCATION="/home/user/packages" \
     -DRUSTUP_LOCATION="/home/user/install_rustup" \
-    -DMINGW_INSTALL_PREFIX="/home/user/build_x86_64_v3/x86_64_v3-w64-mingw32" \
+    -DPACKAGES_INSTALL_PREFIX="/home/user/build_x86_64_v3/x86_64_v3-w64-mingw32" \
     -G Ninja -B build_x86_64_v3 -S mpv-winbuild-cmake
 
 The cmake command will create `clang_root` as clang sysroot where llvm tools installed. `build_x86_64` is build directory to compiling packages.
@@ -127,7 +127,7 @@ If you want add another target (ex. `i686-w64-mingw32`), change `TARGET_ARCH` an
     -DCOMPILER_TOOLCHAIN=clang \
     -DSINGLE_SOURCE_LOCATION="/home/user/packages" \
     -DRUSTUP_LOCATION="/home/user/install_rustup" \
-    -DMINGW_INSTALL_PREFIX="/home/user/build_i686/i686-w64-mingw32" \
+    -DPACKAGES_INSTALL_PREFIX="/home/user/build_i686/i686-w64-mingw32" \
     -G Ninja -B build_i686 -S mpv-winbuild-cmake
     cd build_i686
     ninja llvm-clang # same as above

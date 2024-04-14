@@ -1,11 +1,12 @@
 [binaries]
+as = '@CMAKE_INSTALL_PREFIX@/bin/@TARGET_ARCH@-clang'
 c = '@CMAKE_INSTALL_PREFIX@/bin/@TARGET_ARCH@-clang'
 cpp = '@CMAKE_INSTALL_PREFIX@/bin/@TARGET_ARCH@-clang++'
-ar = '@CMAKE_INSTALL_PREFIX@/bin/@TARGET_ARCH@-ar'
-strip = '@CMAKE_INSTALL_PREFIX@/bin/@TARGET_ARCH@-strip'
-windres = '@CMAKE_INSTALL_PREFIX@/bin/@TARGET_ARCH@-windres'
-pkgconfig = '@CMAKE_INSTALL_PREFIX@/bin/@TARGET_ARCH@-pkgconf'
-dlltool = '@CMAKE_INSTALL_PREFIX@/bin/@TARGET_ARCH@-dlltool'
+ar = 'llvm-ar'
+strip = 'llvm-strip'
+windres = 'llvm-windres'
+pkgconfig = 'pkg-config'
+dlltool = 'llvm-dlltool'
 
 [host_machine]
 system = 'android'

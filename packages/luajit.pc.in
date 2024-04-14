@@ -5,7 +5,7 @@ relver=0
 version=${majver}.${minver}.${relver}-beta3
 abiver=5.1
 
-prefix=@MINGW_INSTALL_PREFIX@
+prefix=@PACKAGES_INSTALL_PREFIX@
 multilib=lib
 exec_prefix=${prefix}
 libdir=${exec_prefix}/${multilib}

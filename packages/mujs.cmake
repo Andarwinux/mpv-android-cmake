@@ -4,7 +4,7 @@ CC=${TARGET_ARCH}-gcc
 AR=${TARGET_ARCH}-ar
 RANLIB=${TARGET_ARCH}-ranlib
 OUT=<BINARY_DIR>
-prefix=${MINGW_INSTALL_PREFIX}
+prefix=${PACKAGES_INSTALL_PREFIX}
 host=mingw")
 
 ExternalProject_Add(mujs

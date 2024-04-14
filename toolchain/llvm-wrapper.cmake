@@ -1,4 +1,4 @@
-find_program(PKGCONFIG NAMES pkgconf)
+find_program(PKGCONFIG NAMES pkg-config)
 ExternalProject_Add(llvm-wrapper
     DOWNLOAD_COMMAND ""
     SOURCE_DIR ${SOURCE_LOCATION}
@@ -7,6 +7,8 @@ ExternalProject_Add(llvm-wrapper
     BUILD_COMMAND ""
     COMMAND ${CMAKE_COMMAND} -E create_symlink ${PKGCONFIG} ${CMAKE_INSTALL_PREFIX}/bin/${TARGET_ARCH}-pkg-config
     COMMAND ${CMAKE_COMMAND} -E create_symlink ${PKGCONFIG} ${CMAKE_INSTALL_PREFIX}/bin/${TARGET_ARCH}-pkgconf
+    COMMAND ${CMAKE_COMMAND} -E create_symlink ${PKGCONFIG} ${CMAKE_INSTALL_PREFIX}/bin/pkg-config
+    COMMAND ${CMAKE_COMMAND} -E create_symlink ${PKGCONFIG} ${CMAKE_INSTALL_PREFIX}/bin/pkgconf
     INSTALL_COMMAND ""
     COMMENT "Setting up target directories and symlinks"
 )
@@ -27,7 +29,7 @@ foreach(compiler clang++ g++ c++ clang gcc as)
         set(driver_mode "")
         set(clang_compiler "clang")
     endif()
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/llvm/llvm-compiler.in
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/llvm-compiler.in
                    ${CMAKE_INSTALL_PREFIX}/bin/${TARGET_ARCH}-${compiler}
                    FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
                    @ONLY)
@@ -40,7 +42,7 @@ elseif(TARGET_CPU STREQUAL "x86_64")
 elseif(TARGET_CPU STREQUAL "aarch64")
     set(ld_m_flag "arm64pe")
 endif()
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/llvm/llvm-ld.in
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/llvm-ld.in
                ${CMAKE_INSTALL_PREFIX}/bin/${TARGET_ARCH}-ld
                FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
                @ONLY)

@@ -27,7 +27,7 @@ ExternalProject_Add(libplacebo
         -Ddebug=true
         -Db_ndebug=true
         -Doptimization=3
-        -Dvulkan-registry='${MINGW_INSTALL_PREFIX}/share/vulkan/registry/vk.xml'
+        -Dvulkan-registry='${PACKAGES_INSTALL_PREFIX}/share/vulkan/registry/vk.xml'
         -Ddemos=false
     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
     INSTALL_COMMAND ${EXEC} ninja -C <BINARY_DIR> install

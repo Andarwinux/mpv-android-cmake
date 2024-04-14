@@ -13,7 +13,7 @@ ExternalProject_Add(libdovi
         ${cargo_lto_rustflags}
         cargo cinstall
         --manifest-path <SOURCE_DIR>/dolby_vision/Cargo.toml
-        --prefix ${MINGW_INSTALL_PREFIX}
+        --prefix ${PACKAGES_INSTALL_PREFIX}
         --target ${TARGET_CPU}-pc-windows-${rust_target}
         -Z build-std=std,panic_abort,core,alloc
         --release

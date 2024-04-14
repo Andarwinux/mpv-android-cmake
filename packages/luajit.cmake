@@ -21,7 +21,7 @@ ExternalProject_Add(luajit
         -DCMAKE_C_FLAGS='-DLUAJIT_ENABLE_LUA52COMPAT'
     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
     INSTALL_COMMAND ${EXEC} ninja -C <BINARY_DIR> install
-            COMMAND bash -c "cp ${CMAKE_CURRENT_BINARY_DIR}/luajit.pc ${MINGW_INSTALL_PREFIX}/lib/pkgconfig/luajit.pc"
+            COMMAND bash -c "cp ${CMAKE_CURRENT_BINARY_DIR}/luajit.pc ${PACKAGES_INSTALL_PREFIX}/lib/pkgconfig/luajit.pc"
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
 )
 

@@ -8,7 +8,7 @@ ExternalProject_Add(x265
         -DMAIN12=ON
         -DHIGH_BIT_DEPTH=ON
         -DENABLE_HDR10_PLUS=ON
-        -DENABLE_LIBVMAF=ON
+        -DENABLE_LIBVMAF=OFF
         -DHIGH_BIT_DEPTH=ON
         -DENABLE_SHARED=OFF
         -DENABLE_CLI=OFF

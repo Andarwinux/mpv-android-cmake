@@ -19,8 +19,8 @@ ExternalProject_Add(spirv-cross
 
 ExternalProject_Add_Step(spirv-cross symlink
     DEPENDEES install
-    COMMAND ${CMAKE_COMMAND} -E create_symlink ${MINGW_INSTALL_PREFIX}/lib/pkgconfig/spirv-cross-c-shared.pc
-                                               ${MINGW_INSTALL_PREFIX}/lib/pkgconfig/spirv-cross.pc
+    COMMAND ${CMAKE_COMMAND} -E create_symlink ${PACKAGES_INSTALL_PREFIX}/lib/pkgconfig/spirv-cross-c-shared.pc
+                                               ${PACKAGES_INSTALL_PREFIX}/lib/pkgconfig/spirv-cross.pc
 )
 
 force_rebuild_git(spirv-cross)

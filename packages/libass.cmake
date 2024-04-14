@@ -15,7 +15,6 @@ ExternalProject_Add(libass
     CONFIGURE_COMMAND ${EXEC} CONF=1 meson setup <BINARY_DIR> <SOURCE_DIR>
         ${meson_conf_args}
         -Dfontconfig=enabled
-        -Ddirectwrite=enabled
         -Dasm=enabled
         -Dlibunibreak=enabled
     BUILD_COMMAND ${EXEC} ninja -C <BINARY_DIR>
