@@ -1,0 +1,107 @@
+From 1210dd1d114ee9bbc780e8ce942e5557422286de Mon Sep 17 00:00:00 2001
+From: shinchiro <shinchiro@users.noreply.github.com>
+Date: Sun, 21 May 2023 08:07:50 +0800
+Subject: [PATCH] ExternalProject: Changes
+
+GIT_CLONE_FLAGS:        Support passing other flags in git clone operation
+GIT_CLONE_POST_COMMAND: Run git command after clone operation
+GIT_RESET:              Perform git reset hard on repo
+---
+ Modules/ExternalProject.cmake             | 15 +++++++++++++
+ Modules/ExternalProject/gitclone.cmake.in | 26 +++++++++++++++++++++++
+ 2 files changed, 41 insertions(+)
+
+diff --git a/Modules/ExternalProject.cmake b/Modules/ExternalProject.cmake
+index 1fdd7545b..b3aea8af3 100644
+--- a/Modules/ExternalProject.cmake
++++ b/Modules/ExternalProject.cmake
+@@ -1297,6 +1297,9 @@ function(_ep_write_gitclone_script
+   git_submodules
+   git_shallow
+   git_progress
++  git_clone_flags
++  git_clone_post_cmd
++  git_reset
+   git_config
+   src_name
+   work_dir
+@@ -1334,6 +1337,9 @@ function(_ep_write_gitclone_script
+   if(git_progress)
+     list(APPEND git_clone_options --progress)
+   endif()
++  foreach(flag IN LISTS git_clone_flags)
++    list(APPEND git_clone_options "${flag}")
++  endforeach()
+   foreach(config IN LISTS git_config)
+     list(APPEND git_clone_options --config \"${config}\")
+   endforeach()
+@@ -2841,6 +2847,9 @@ function(_ep_add_download_command name)
+     get_property(git_shallow TARGET ${name} PROPERTY _EP_GIT_SHALLOW)
+     get_property(git_progress TARGET ${name} PROPERTY _EP_GIT_PROGRESS)
+     get_property(git_config TARGET ${name} PROPERTY _EP_GIT_CONFIG)
++    get_property(git_clone_flags TARGET ${name} PROPERTY _EP_GIT_CLONE_FLAGS)
++    get_property(git_clone_post_cmd TARGET ${name} PROPERTY _EP_GIT_CLONE_POST_COMMAND)
++    get_property(git_reset TARGET ${name} PROPERTY _EP_GIT_RESET)
+ 
+     # If git supports it, make checkouts quiet when checking out a git hash.
+     # This avoids the very noisy detached head message.
+@@ -2882,6 +2891,9 @@ CMP0097=${_EP_CMP0097}
+       "${git_submodules}"
+       "${git_shallow}"
+       "${git_progress}"
++      "${git_clone_flags}"
++      "${git_clone_post_cmd}"
++      "${git_reset}"
+       "${git_config}"
+       ${src_name}
+       ${work_dir}
+@@ -4058,6 +4070,9 @@ function(ExternalProject_Add name)
+     GIT_SHALLOW
+     GIT_PROGRESS
+     GIT_CONFIG
++    GIT_CLONE_FLAGS
++    GIT_CLONE_POST_COMMAND
++    GIT_RESET
+     GIT_REMOTE_UPDATE_STRATEGY
+     #
+     SVN_REPOSITORY
+diff --git a/Modules/ExternalProject/gitclone.cmake.in b/Modules/ExternalProject/gitclone.cmake.in
+index 3312171e0..f818380b7 100644
+--- a/Modules/ExternalProject/gitclone.cmake.in
++++ b/Modules/ExternalProject/gitclone.cmake.in
+@@ -49,6 +49,32 @@ if(error_code)
+   message(FATAL_ERROR "Failed to checkout tag: '@git_tag@'")
+ endif()
+ 
++set(git_clone_post_cmd "@git_clone_post_cmd@")
++if(NOT ${git_clone_post_cmd} STREQUAL "")
++  execute_process(
++    COMMAND "@git_EXECUTABLE@" @git_options@
++            @git_clone_post_cmd@
++    WORKING_DIRECTORY "@work_dir@/@src_name@"
++    RESULT_VARIABLE error_code
++  )
++endif()
++if(error_code)
++  message(FATAL_ERROR "Failed to run post-command after clone in: '@work_dir@/@src_name@'")
++endif()
++
++set(git_reset "@git_reset@")
++if(NOT ${git_reset} STREQUAL "")
++  execute_process(
++    COMMAND "@git_EXECUTABLE@" reset --hard
++            @git_reset@
++    WORKING_DIRECTORY "@work_dir@/@src_name@"
++    RESULT_VARIABLE error_code
++  )
++endif()
++if(error_code)
++  message(FATAL_ERROR "Failed to run git reset after clone in: '@work_dir@/@src_name@'")
++endif()
++
+ set(init_submodules @init_submodules@)
+ if(init_submodules)
+   execute_process(
+-- 
+2.40.1
+

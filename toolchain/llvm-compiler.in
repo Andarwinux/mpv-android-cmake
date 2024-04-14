@@ -1,0 +1,34 @@
+#!/bin/bash
+TARGET=@TARGET_CPU@
+FLAGS="$FLAGS -target $TARGET-termux-linux-android33"
+FLAGS="$FLAGS @driver_mode@ --sysroot @MINGW_INSTALL_PREFIX@"
+FLAGS="$FLAGS -fuse-ld=lld --ld-path=@TARGET_ARCH@-ld"
+FLAGS="$FLAGS -Wno-unused-command-line-argument -Wno-int-conversion -Wno-vla-cxx-extension -Wno-packed -Wno-unused-function -Wno-macro-redefined -Wno-backend-plugin"
+FLAGS="$FLAGS -DNDEBUG"
+FLAGS="$FLAGS -ftls-model=local-exec"
+
+if [ "@TARGET_CPU@" == "aarch64" ]; then
+    ARCH_FLAGS="-mcpu=@GCC_ARCH@ -mtune=@M_TUNE@"
+else
+    ARCH_FLAGS_FORCE="-march=@GCC_ARCH@ -mtune=@M_TUNE@"
+fi
+
+if [ "$CONF" == "1" ]; then
+    SKIP_OPT="-g0 -O0 -fno-lto -fno-data-sections -fno-function-sections -fno-whole-program-vtables"
+else
+    FLAGS="$FLAGS -O3 -pipe -fno-emulated-tls -fstrict-flex-arrays=3 -fvisibility=hidden -fstrict-vtable-pointers -fforce-emit-vtables"
+    if [ "@ENABLE_CCACHE@" == "ON" ]; then
+        CCACHE="ccache"
+    fi
+    if [ "$GC" != "0" ]; then
+        CLANG_GC="-fdata-sections -ffunction-sections -funique-section-names -fomit-frame-pointer -momit-leaf-frame-pointer -fmerge-all-constants"
+    fi
+    if [ "$LTO" != "0" ] && [ "@CLANG_PACKAGES_LTO@" == "ON" ]; then
+        LTO_FLAGS="-flto=thin -fno-split-lto-unit -fwhole-program-vtables"
+        if [ "@LLD_LTO_ALL_THREADS@" == "ON" ] && [ "$LTO_JOB" != "1" ]; then
+            LTO_FLAGS="$LTO_FLAGS -flto-jobs=@CPU_COUNT@"
+        fi
+    fi
+fi
+
+$CCACHE @clang_compiler@ $LTO_FLAGS $ARCH_FLAGS "$@" $FLAGS $ARCH_FLAGS_FORCE $CLANG_GC @CLANG_FLAGS@ $SKIP_OPT

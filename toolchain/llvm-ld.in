@@ -1,0 +1,15 @@
+#!/bin/env bash
+TARGET=@TARGET_ARCH@
+POLICY="cache_size_bytes=4g:prune_interval=1m"
+FLAGS="$FLAGS --thinlto-cache-dir=@PACKAGES_INSTALL_PREFIX@/thinlto --thinlto-cache-policy=$POLICY"
+
+if [ "$CONF" == "1" ]; then
+    SKIP_OPT="-O0 --lto-O0 --lto-CGO0 --no-gc-sections --build-id=none"
+else
+    FLAGS="$FLAGS -O3 --lto-O3 --lto-CGO3 -s"
+    if [ "$GC" != "0" ]; then
+        LLD_GC="--gc-sections --icf=all"
+    fi
+fi
+
+ld.lld "$@" $FLAGS $LLD_GC @LLD_FLAGS@ $SKIP_OPT
