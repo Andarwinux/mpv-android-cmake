@@ -25,7 +25,7 @@ ExternalProject_Add(ffmpeg
         #opus
         #speex
         #vorbis
-        x265
+        #x265
         #libxml2
         #libvpl
         #libopenmpt
@@ -94,7 +94,7 @@ ExternalProject_Add(ffmpeg
         #--enable-librubberband
         #--enable-libvpx
         #--enable-libwebp
-        --enable-libx265
+        #--enable-libx265
         #--enable-libaom
         #--enable-librav1e
         #--enable-libsvtav1
